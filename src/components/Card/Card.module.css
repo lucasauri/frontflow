@@ -1,0 +1,181 @@
+/* Card Base Styles */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-gray-200);
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Variants */
+.default {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+}
+
+.elevated {
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.outlined {
+  background: transparent;
+  border: 2px solid var(--color-gray-300);
+  box-shadow: none;
+}
+
+.flat {
+  background: var(--color-gray-50);
+  border: none;
+  box-shadow: none;
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.success {
+  background: linear-gradient(135deg, var(--color-green-500), var(--color-green-600));
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.warning {
+  background: linear-gradient(135deg, var(--color-yellow-500), var(--color-yellow-600));
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.danger {
+  background: linear-gradient(135deg, var(--color-red-500), var(--color-red-600));
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Padding Variants */
+.padding-none {
+  padding: 0;
+}
+
+.padding-small {
+  padding: 1rem;
+}
+
+.padding-medium {
+  padding: 1.5rem;
+}
+
+.padding-large {
+  padding: 2rem;
+}
+
+/* States */
+.hover {
+  cursor: pointer;
+}
+
+.hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.clickable:hover {
+  transform: translateY(-1px);
+}
+
+.clickable:active {
+  transform: translateY(0);
+}
+
+/* Card Parts */
+.header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  margin-bottom: 1rem;
+}
+
+.body {
+  flex: 1;
+}
+
+.footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-gray-200);
+  margin-top: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--color-gray-900);
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Specialized Card Types */
+.statCard {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+}
+
+.statCard .title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.statCard .description {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    border-radius: 8px;
+  }
+  
+  .padding-large {
+    padding: 1.5rem;
+  }
+  
+  .statCard .title {
+    font-size: 1.75rem;
+  }
+}
