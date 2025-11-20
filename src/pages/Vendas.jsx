@@ -198,7 +198,9 @@ const Vendas = () => {
       carregarProdutos();
       
     } catch (error) {
-      setError('Erro ao finalizar venda: ' + error.message);
+      const errorMsg = error?.message || 'Erro desconhecido ao finalizar venda';
+      setError('Erro ao finalizar venda: ' + errorMsg);
+      console.error('Erro detalhado:', error);
     } finally {
       setLoading(false);
     }

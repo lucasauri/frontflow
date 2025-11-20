@@ -49,7 +49,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       id: 'reports',
       label: 'Relatórios',
       icon: BarChart3,
-      path: '/reports',
+      path: '/relatorios',
       description: 'Relatórios e análises'
     },
     {

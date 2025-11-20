@@ -1,45 +1,96 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Clients from './pages/Clients';
 import Vendas from './pages/Vendas';
+import Relatorios from './pages/Relatorios';
+import ProtectedRoute from './auth/ProtectedRoute';
+import Login from './pages/Login';
+import { authService } from './services/authService';
 import './styles/global.css';
 
-function App() {
+function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const isLogin = location.pathname === '/login';
+  const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const closeSidebar = () => setSidebarOpen(false);
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
+  const handleLogout = async () => {
+    await authService.logout();
+    navigate('/login', { replace: true });
   };
 
   return (
-    <Router>
-      <div className="app">
-        <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
-        
-        <div className="main-content">
-          <Navbar 
+    <div className="app">
+      {!isLogin && <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />}
+
+      <div className="main-content">
+        {!isLogin && (
+          <Navbar
             onMenuToggle={toggleSidebar}
             isMenuOpen={sidebarOpen}
-            user={{ name: 'Admin', email: 'admin@hortiflow.com' }}
-            onLogout={() => console.log('Logout')}
+            onLogout={handleLogout}
           />
-          
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/vendas" element={<Vendas />} />
-          </Routes>
-        </div>
+        )}
+
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/clients"
+            element={
+              <ProtectedRoute>
+                <Clients />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/vendas"
+            element={
+              <ProtectedRoute>
+                <Vendas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/relatorios"
+            element={
+              <ProtectedRoute>
+                <Relatorios />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 }

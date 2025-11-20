@@ -115,8 +115,8 @@ const Navbar = ({
                     Configurações
                   </button>
                   <button 
-                    className={styles.dropdownItem}
-                    onClick={onLogout}
+                    className={clsx(styles.dropdownItem, styles.logoutItem)}
+                    onClick={() => { setShowUserMenu(false); onLogout && onLogout(); }}
                   >
                     <LogOut size={16} />
                     Sair
